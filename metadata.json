@@ -1,0 +1,7 @@
+{
+  "name": "AutoLens Solver",
+  "description": "A mobile-first tool that automatically captures the camera view every minute to solve problems or identify objects using Gemini and Google Search.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
