@@ -1,10 +1,11 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import CameraView from './components/CameraView';
 import ResultCard from './components/ResultCard';
 import { solveProblemFromImage } from './services/geminiService';
 import { ScanResult, CameraHandle } from './types';
 
-const AUTO_SCAN_INTERVAL_MS = 30000; // 30 seconds
+const AUTO_SCAN_INTERVAL_MS = 30000; // 30 seconds 
 
 export default function App() {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -191,7 +192,7 @@ export default function App() {
           <div className="text-center py-8 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-100 mt-4">
             <div className="animate-bounce text-2xl mb-2">📸</div>
             <p>화면을 비추면 정답을 알려줍니다</p>
-            <p className="text-xs text-gray-400 mt-1">버튼을 눌러 즉시 스캔하거나 30초를 기다리세요</p>
+            <p className="text-xs text-gray-400 mt-1">버튼을 눌러 즉시 스캔하거나 1분을 기다리세요</p>
           </div>
         )}
 

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ScanResult } from '../types';
 
@@ -13,7 +14,15 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, isLatest = false }) => 
   const getAnswerStyle = (text: string) => {
     const cleanText = text.trim().toUpperCase();
     
-    // Specific Colors for A, B, C, D / 1, 2, 3, 4
+    // 1. Check for specific status keywords FIRST to avoid overlap with letter options
+    if (cleanText === 'ERROR' || cleanText === '분석 실패') {
+      return 'bg-gray-200 text-gray-500 border-gray-300';
+    }
+    if (cleanText === 'UNKNOWN') {
+      return 'bg-gray-700 text-white border-gray-800 shadow-gray-400';
+    }
+
+    // 2. Check for option letters (Multiple answers like "A, C" will match the first letter)
     if (cleanText.startsWith('A') || cleanText === '1') {
       return 'bg-red-500 text-white border-red-600 shadow-red-200';
     }
@@ -24,19 +33,13 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, isLatest = false }) => 
       return 'bg-green-500 text-white border-green-600 shadow-green-200';
     }
     if (cleanText.startsWith('D') || cleanText === '4') {
-      return 'bg-amber-400 text-black border-amber-500 shadow-amber-200'; // Amber/Yellow for D
+      return 'bg-amber-400 text-black border-amber-500 shadow-amber-200';
     }
     if (cleanText.startsWith('E') || cleanText === '5') {
       return 'bg-purple-500 text-white border-purple-600 shadow-purple-200';
     }
-    if (cleanText === 'UNKNOWN') {
-        return 'bg-gray-700 text-white border-gray-800 shadow-gray-400';
-    }
-    if (cleanText === 'ERROR' || cleanText === '분석 실패') {
-        return 'bg-gray-200 text-gray-500 border-gray-300';
-    }
     
-    // Default style for keywords (e.g., "/remind")
+    // Default style for other texts
     return 'bg-indigo-600 text-white border-indigo-700 shadow-indigo-200';
   };
 
@@ -74,7 +77,6 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, isLatest = false }) => 
             </div>
           ) : (
             <div className="animate-scale-in">
-               {/* If it's very long text, make it smaller, otherwise huge */}
                <h2 className={`font-black tracking-tighter drop-shadow-md ${
                    (result.text?.length || 0) > 3 ? 'text-4xl leading-tight break-all' : 'text-8xl'
                }`}>
